@@ -8,7 +8,30 @@ a:active{
     position: relative;
     padding: 0rem 1rem;
 }
+/* custom Scroll bar */
+/* width */
+::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+}
 
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: rgba(78, 28, 44, 0.582); 
+    border-radius: 50px; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(113, 71, 84); 
+    cursor: pointer;
+}
+/* custom scrollbar */
 /* angular material Customize */
 
 /* mat navbar */
@@ -35,6 +58,7 @@ a:active{
     flex: 1 0 auto;}
 
   .sp{flex: 1 0;}
+
 /* ./mat navbar */
 
 .mat-list, 
@@ -55,5 +79,56 @@ a:active{
     height: 48px;}
 
 .mat-toolbar.mat-primary {
-    background: #98405d;
+    background: #748633;
     color: #fff;}
+
+/* material Card */
+.vt-card {
+    max-width: 400px;
+    }
+    
+.vt-header-image {
+    background-size: cover;
+    }
+.vt-header-image img{
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    box-shadow: 0px 0px 9px 1px #aac71d;
+}
+/* custom buttons */
+.vt-button-submit, 
+.vt-button-like{
+    background: rgb(169, 211, 18);
+    color: #fff !important;
+}
+.vt-button-like{
+    background: rgb(169, 211, 18);
+    color: #fff !important;
+}
+.vt-button-cancel, 
+.vt-button-dislike{
+    background: #98405d;
+    color: #fff !important;
+}
+.vt-button-dislike{
+    background: #98405d;
+    color: #fff !important;
+}
+
+/* material input */
+
+.mat-checkbox-checked.mat-accent .mat-checkbox-background, 
+.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background{
+  background-color: #8cb7ce !important;}
+  
+.mat-ripple-element {
+  background: rgba(117, 148, 6, .5) !important;}
+
+.mat-radio-button.mat-accent .mat-radio-inner-circle
+{
+  background-color: #8cb7ce !important;}
+
+.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle{
+  border-color: #9bb1bc !important}

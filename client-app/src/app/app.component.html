@@ -1,6 +1,12 @@
 <div class="vt-container" [class.vt-is-mobile]="mobileQuery.matches">
   <mat-toolbar color="primary" class="vt-toolbar">
-    <button mat-icon-button (click)="snav.toggle()">
+    <!-- for mobile device only -->
+    <button mat-icon-button (click)="snav.toggle()" fxHide.gt-lg *ngIf="mobileQuery.matches">
+      <mat-icon *ngIf="!snav.opened">menu</mat-icon>
+      <mat-icon *ngIf="snav.opened">close</mat-icon>
+    </button>
+      <!-- for Desktop only -->
+  <button mat-icon-button fxHide="false" (click)="snav.toggle()" fxHide.gt-lg *ngIf="!mobileQuery.matches">
       <mat-icon>menu</mat-icon>
     </button>
     <h1 class="vt-app-name">Practice App</h1>

@@ -1,3 +1,31 @@
-<p>
-  contact-us works!
-</p>
+<h2>Contact Form</h2>
+<!-- mat card -->
+<mat-card class="vt-card">
+  <mat-card-header>
+    <div mat-card-avatar class="vt-header-image"></div>
+    <mat-card-title>Sandeep</mat-card-title>
+    <mat-card-subtitle>Software Developer</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+
+    <mat-form-field>
+      <input matInput placeholder="Simple placeholder" required>
+    </mat-form-field>
+  
+    <mat-form-field>
+      <input matInput placeholder="Simple placeholder" required>
+    </mat-form-field>
+  
+    <mat-form-field>
+      <mat-select required [(ngModel)]="formType" name="formType">
+        <mat-option *ngFor="let opt of options" value="{{opt.value}}">{{opt.name}}</mat-option>
+      </mat-select>
+      <mat-placeholder>Select Type</mat-placeholder>
+    </mat-form-field>
+    
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button class="vt-button-submit">Submit</button>
+    <button mat-raised-button class="vt-button-cancel">Cancel</button>
+  </mat-card-actions>
+</mat-card>

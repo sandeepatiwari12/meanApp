@@ -1,6 +1,65 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <!-- inline styles -->
+  <style type="text/css">
+    body,
+    html {
+      height: 100%;
+    }
+
+    .app-loading {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+    }
+
+    .app-loading .spinner {
+      height: 200px;
+      width: 200px;
+      animation: rotate 2s linear infinite;
+      transform-origin: center center;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+    }
+
+    .app-loading .spinner .path {
+      stroke-dasharray: 1, 200;
+      stroke-dashoffset: 0;
+      animation: dash 1.5s ease-in-out infinite;
+      stroke-linecap: round;
+      stroke: #ddd;
+    }
+
+    @keyframes rotate {
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes dash {
+      0% {
+        stroke-dasharray: 1, 200;
+        stroke-dashoffset: 0;
+      }
+      50% {
+        stroke-dasharray: 89, 200;
+        stroke-dashoffset: -35px;
+      }
+      100% {
+        stroke-dasharray: 89, 200;
+        stroke-dashoffset: -124px;
+      }
+    }
+  </style>
+  <!-- ./inline styles -->
   <meta charset="utf-8">
   <title>CustomerApp</title>
   <base href="/">
@@ -10,6 +69,22 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
-  <app-root>Loading...</app-root>
+  <app-root>
+      <div class="app-loading">
+          <div class="logo"></div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
+            <g fill="#8CB7CC" fill-rule="evenodd">
+                <text font-family="CircularStd-Bold, Circular Std" font-size="30" font-weight="bold">
+                    <tspan x="39" y="28">Moneytor</tspan>
+                </text>
+                <path d="M30.937 5.752c-.15-.435-.312-.866-.486-1.293-.526-1.287-1.197-2.565-2.276-3.443-4.566-3.72-7.932 3.725-8.903 7.103-1.602 5.573-2.083 11.409-3.467 17.04-.995-4.625-2.004-9.289-3.922-13.614-.586-1.32-1.376-2.716-2.738-3.201-1.22-.435-2.627.012-3.607.86-.98.848-1.597 2.038-2.072 3.244-1.08 2.746-1.53 5.691-1.961 8.61-.31 2.104-.615 4.21-.912 6.315-.158 1.122-.262 2.42.527 3.233.668.688 1.81.755 2.67.331.86-.424 1.466-1.246 1.853-2.124.349-.79.546-1.637.741-2.479l1.73-7.456c.986 4.782 1.995 9.627 4.191 13.987.58 1.15 1.341 2.347 2.562 2.758 1.169.393 2.497-.066 3.414-.89.917-.823 1.49-1.959 1.956-3.1 2.975-7.283 2.373-15.643 5.344-22.928a68.097 68.097 0 0 1-.095 29.077c-.272 1.218-.505 2.69.407 3.541.674.629 1.77.623 2.584.192.814-.43 1.394-1.202 1.857-1.998 1.116-1.92 1.709-4.1 2.089-6.288.798-4.597.702-9.298.503-13.96-.196-4.565-.507-9.213-1.99-13.517"/>
+            </g>
+        </svg>
+          <!-- spinner -->
+          <svg class="spinner" viewBox="25 25 50 50">
+            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
+          </svg>
+        </div>
+  </app-root>
 </body>
 </html>

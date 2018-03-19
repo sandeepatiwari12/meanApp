@@ -1,4 +1,17 @@
-<p>
-  about-us works!
-</p>
-
+<h2>About us</h2>
+<ng-container *ngFor="let emp of employee">
+<mat-card class="vt-card">
+    <mat-card-header>
+      <div mat-card-avatar class="vt-header-image"><img src="{{emp.profilePic}}"></div>
+      <mat-card-title>{{emp.name}}</mat-card-title>
+      <mat-card-subtitle>{{emp.designation}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p>{{emp.description}}</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-icon-button class="vt-button-like"><i class="material-icons">thumb_up</i></button>
+      <button mat-icon-button class="vt-button-dislike"><i class="material-icons">thumb_down</i></button>
+    </mat-card-actions>
+  </mat-card>
+</ng-container>
