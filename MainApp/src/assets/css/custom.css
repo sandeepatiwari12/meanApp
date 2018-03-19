@@ -1,0 +1,59 @@
+/* layouts */
+a:focus, 
+a:hover, 
+a:active{
+    outline: none !important
+}
+.main-container{
+    position: relative;
+    padding: 0rem 1rem;
+}
+
+/* angular material Customize */
+
+/* mat navbar */
+.vt-container {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;}
+  
+  .vt-is-mobile .vt-toolbar {
+    position: fixed;
+    z-index: 2;}
+
+  h1.vt-app-name {
+    margin-left: 8px;}
+  
+  .vt-sidenav-container {
+    flex: 1;}
+
+  .vt-is-mobile .vt-sidenav-container {
+    flex: 1 0 auto;}
+
+  .sp{flex: 1 0;}
+/* ./mat navbar */
+
+.mat-list, 
+.mat-nav-list, 
+.mat-selection-list{
+    width: 200px;}
+
+.mat-drawer.mat-drawer-side{
+    background: #e1e8ef;}
+
+.mat-list .mat-list-item, 
+.mat-list .mat-list-option, 
+.mat-nav-list .mat-list-item, 
+.mat-nav-list .mat-list-option, 
+.mat-selection-list .mat-list-item, 
+.mat-selection-list .mat-list-option{
+    display: block;
+    height: 48px;}
+
+.mat-toolbar.mat-primary {
+    background: #98405d;
+    color: #fff;}
