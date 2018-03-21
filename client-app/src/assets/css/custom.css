@@ -83,20 +83,23 @@ a:active{
     color: #fff;}
 
 /* material Card */
+.mat-card{
+    margin: 1rem 1rem 1rem 0rem !important;}
+
 .vt-card {
     max-width: 400px;
-    }
+    margin: 1rem 1rem 1rem 0rem;}
     
 .vt-header-image {
-    background-size: cover;
-    }
+    background-size: cover;}
+
 .vt-header-image img{
     height: 40px;
     width: 40px;
     border-radius: 50%;
     flex-shrink: 0;
-    box-shadow: 0px 0px 9px 1px #aac71d;
-}
+    box-shadow: 0px 0px 9px 1px #aac71d;}
+    
 /* custom buttons */
 .vt-button-submit, 
 .vt-button-like{

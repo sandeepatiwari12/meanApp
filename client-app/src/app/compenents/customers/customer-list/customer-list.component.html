@@ -1,0 +1,60 @@
+<h2>Customers List</h2>
+<ng-container *ngFor="let contact of contacts">
+  <mat-card class="vt-card">
+    <mat-card-header>
+      Full Name: {{contact.first_name +' '+ contact.last_name}} 
+    </mat-card-header>
+    <mat-card-content>
+        <mat-grid-list cols="3" rowHeight="3:1">
+            <mat-grid-tile><h4>First Name:</h4> {{contact.first_name}}</mat-grid-tile>
+            <mat-grid-tile><h4>Last Name:</h4> {{contact.last_name}}</mat-grid-tile>
+            <mat-grid-tile><h4>Phone:</h4> {{contact.phone}}</mat-grid-tile>
+          </mat-grid-list>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-icon-button class="vt-button-dislike"><i class="material-icons">add_circle_outline</i></button>
+      <!-- <button mat-icon-button class="vt-button-like"><i class="material-icons">mode_edit</i></button> -->
+      <button mat-icon-button class="vt-button-dislike" (click)="deleteContact(contact._id)"><i class="material-icons">delete</i></button>
+    </mat-card-actions>
+  </mat-card>
+</ng-container>
+
+<!-- new Contact Form -->
+<!-- <ng-template [ngIf]=""> -->
+    <mat-card class="vt-card">
+      <mat-card-header>
+        <h2>Add New Contact</h2>
+      </mat-card-header>
+      <mat-card-content>
+        <form>
+          
+    <mat-form-field>
+        <input matInput placeholder="First Name" [(ngModel)]="first_name" name="first_name" required>
+      </mat-form-field>
+      
+    <mat-form-field>
+        <input matInput placeholder="Last Name" [(ngModel)]="last_name" name="last_name" required>
+      </mat-form-field>
+      
+    <mat-form-field>
+        <input matInput placeholder="Phone Number" 
+        [(ngModel)]="phone" 
+        name="phoneNumber" 
+        pattern="[789][0-9]{9}"
+        id="phoneNumber"
+        #phoneNumber = "ngModel"
+        minlength="10" maxlength="10" required>
+      </mat-form-field>
+      <div *ngIf="!phoneNumber.valid && (phoneNumber.touched)">
+          <mat-error class="mt-n15" *ngIf="phoneNumber.hasError('required')">Mobile is required</mat-error>
+          <mat-error class="mt-n15" *ngIf="phoneNumber.hasError('pattern')">Mobile number should be only numbers</mat-error>
+        </div>
+        </form>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-icon-button class="vt-button-dislike" (click)="addContact()"><i class="material-icons">save</i></button>
+        <button mat-icon-button class="vt-button-dislike"><i class="material-icons">cancel</i></button>
+      </mat-card-actions>
+    </mat-card>
+
+<!-- </ng-template> -->

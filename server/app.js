@@ -1,49 +1,49 @@
 var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-const MongoClient = require('mongodb').MongoClient;
-const ObjectID = require('mongodb').ObjectID;
+var bodyParser = require('body-parser');
+var cors = require('cors')
+var path = require('path');
 
-var book = require('./routes/book');
+
 var app = express();
 
+// route
+const route = require('./routes/route');
 
-mongoose.Promise = require('bluebird');
-// Connect
-const connection = (closure) => {
-    return MongoClient.connect('mongodb://localhost:27017/server', (err, db) => {
-        if (err) return console.log(err);
+// Connect to mongoDB
+mongoose.connect('mongodb://localhost:27017/contactlist');
 
-        closure(db);
-    });
-};
+// on connection 
+mongoose.connection.on('connected', () => {
+    console.log('connected to database mongodb @ 27017');
+});
 
-app.use(logger('dev'));
+mongoose.connection.on('error', (err) => {
+    if (err) {
+        console.log('Error in Database Connection:' + err);
+    }
+});
+
+// port for server
+var port = 3000;
+
+// add middleware
+app.use(cors());
+
+// body parser
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({'extended':'false'}));
-app.use(express.static(path.join(__dirname, 'dist')));
-app.use('/books', express.static(path.join(__dirname, 'dist')));
-app.use('/book', book);
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+// static files
+app.use(express.static(path.join(__dirname, 'public')));
+
+// route use for api
+app.use('/api', route);
+
+// home page for server
+app.get('/', (req, res) => {
+    res.send('foobar');
 });
 
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+app.listen(port, () => {
+    console.log('Server started on port ' + port);
 });
-
-module.exports = app;

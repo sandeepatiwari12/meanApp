@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 import {
     MatAutocompleteModule,
     MatButtonModule,
@@ -38,6 +39,7 @@ import {
 
   @NgModule({
     imports: [
+        NgxChartsModule,
         FormsModule,
         ReactiveFormsModule,
         MatToolbarModule,
@@ -76,6 +78,7 @@ import {
         MatFormFieldModule
     ],
     exports: [
+        NgxChartsModule,
         FormsModule,
         ReactiveFormsModule,
         MatToolbarModule,

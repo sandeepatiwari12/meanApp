@@ -1,28 +1,19 @@
 {
-  "name": "server",
+  "name": "mytasklist",
   "version": "1.0.0",
+  "description": "Simple task manager",
   "main": "app.js",
-  "dependencies": {
-    "bluebird": "^3.5.1",
-    "body-parser": "^1.18.2",
-    "express": "^4.16.3",
-    "mongoose": "^5.0.10",
-    "morgan": "^1.9.0",
-    "serve-favicon": "^2.4.5"
-  },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/sandeepatiwari12/lazzyLoading.git"
-  },
-  "author": "Sandeep Tiwari",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/sandeepatiwari12/lazzyLoading/issues"
-  },
-  "homepage": "https://github.com/sandeepatiwari12/lazzyLoading#readme",
-  "description": ""
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "cors": "^2.8.4",
+    "ejs": "^2.5.2",
+    "express": "^4.14.0",
+    "mongojs": "^2.4.0",
+    "mongoose": "^5.0.11"
+  }
 }
