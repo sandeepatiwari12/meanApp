@@ -8,12 +8,16 @@ a:active{
     position: relative;
     padding: 0rem 1rem;
 }
+.row{
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+}
 /* custom Scroll bar */
 /* width */
 ::-webkit-scrollbar {
     width: 7px;
-    height: 7px;
-}
+    height: 7px;}
+
 
 /* Track */
 ::-webkit-scrollbar-track {
@@ -32,7 +36,17 @@ a:active{
     cursor: pointer;
 }
 /* custom scrollbar */
+
 /* angular material Customize */
+
+/* graph */
+.vt-display-block{
+    min-height: 450px !important;
+    max-height: 500px !important;
+    display: block !important;}
+
+.chart-legend div{
+    min-width: 150px !important;}
 
 /* mat navbar */
 .vt-container {

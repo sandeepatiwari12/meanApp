@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+
 import { single } from './data';
+import { HomeService } from '../home.service';
+import { Dashboard } from '../../../models/dashboard';
 
 @Component({
   selector: 'app-home',
@@ -7,11 +10,9 @@ import { single } from './data';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
-  single: any[];
+  single: Dashboard[];
+  // single: any[];
   multi: any[];
-
-  view: any[] = [700, 400];
 
   // options
   showXAxis = true;
@@ -27,7 +28,7 @@ export class HomeComponent implements OnInit {
     domain: ['#FF9933', '#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
   };
 
-  constructor() {
+  constructor(private homeService: HomeService) {
     Object.assign(this, { single });
   }
 
@@ -35,6 +36,12 @@ export class HomeComponent implements OnInit {
     console.log(event);
   }
   ngOnInit() {
+    this.refreshData();
+  }
+  refreshData() {
+    this.homeService.getDashboardData()
+    .subscribe( dashboard =>
+    this.single = dashboard);
   }
 
 }

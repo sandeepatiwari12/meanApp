@@ -1,26 +1,73 @@
+
+<ng-template [ngIf]="!isEdit">
 <h2>Customers List</h2>
-<ng-container *ngFor="let contact of contacts">
-  <mat-card class="vt-card">
+  <mat-card>
     <mat-card-header>
-      Full Name: {{contact.first_name +' '+ contact.last_name}} 
     </mat-card-header>
     <mat-card-content>
-        <mat-grid-list cols="3" rowHeight="3:1">
-            <mat-grid-tile><h4>First Name:</h4> {{contact.first_name}}</mat-grid-tile>
-            <mat-grid-tile><h4>Last Name:</h4> {{contact.last_name}}</mat-grid-tile>
-            <mat-grid-tile><h4>Phone:</h4> {{contact.phone}}</mat-grid-tile>
-          </mat-grid-list>
+          <ngx-datatable class="material fixed-header expandable"
+          [rows]="contactList" 
+          [columnMode]="'force'" 
+          [headerHeight]="50"
+          [footerHeight]="50"
+          [rowHeight]="70"
+          [scrollbarH]="50"
+          [selected]='selectedRowContact' 
+          [selectionType]="'single'"
+          (click)="clicktoEditContact($event,selectedRowContact)" 
+          [limit]="3" >
+              <ngx-datatable-column  
+              [sortable]="true"
+              [draggable]="false"
+              [resizeable]="false"
+              name="First Name"
+              prop="first_name">
+                  <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                      {{(row.first_name === "" ? 'N/A' : row.first_name)}}
+                  </ng-template>
+              </ngx-datatable-column>
+
+              <ngx-datatable-column  
+              [sortable]="true"
+              [draggable]="false"
+              [resizeable]="false"
+              name="Last Name"
+              prop="last_name">
+                  <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                      {{(row.last_name === "" ? 'N/A' : row.last_name)}}
+                  </ng-template>
+              </ngx-datatable-column>
+              
+              <ngx-datatable-column  
+              [sortable]="true"
+              [draggable]="false"
+              [resizeable]="false"
+              name="Phone Number"
+              prop="phone">
+                  <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                      {{(row.phone === "" ? 'N/A' : row.phone)}}
+                  </ng-template>
+              </ngx-datatable-column>
+              
+              <ngx-datatable-column  
+              [sortable]="true"
+              [draggable]="false"
+              [resizeable]="false"
+              name="Action">
+                  <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                      <button mat-icon-button class="vt-button-dislike" (click)="deleteContact(row._id)"><i class="material-icons">delete</i></button>
+                  </ng-template>
+              </ngx-datatable-column>
+              </ngx-datatable>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-icon-button class="vt-button-dislike"><i class="material-icons">add_circle_outline</i></button>
-      <!-- <button mat-icon-button class="vt-button-like"><i class="material-icons">mode_edit</i></button> -->
-      <button mat-icon-button class="vt-button-dislike" (click)="deleteContact(contact._id)"><i class="material-icons">delete</i></button>
+      <button mat-icon-button class="vt-button-like" (click)="addnew()"><i class="material-icons">add_circle_outline</i></button>
     </mat-card-actions>
   </mat-card>
-</ng-container>
+</ng-template>
 
 <!-- new Contact Form -->
-<!-- <ng-template [ngIf]=""> -->
+<ng-template [ngIf]="isEdit">
     <mat-card class="vt-card">
       <mat-card-header>
         <h2>Add New Contact</h2>
@@ -53,8 +100,8 @@
       </mat-card-content>
       <mat-card-actions>
         <button mat-icon-button class="vt-button-dislike" (click)="addContact()"><i class="material-icons">save</i></button>
-        <button mat-icon-button class="vt-button-dislike"><i class="material-icons">cancel</i></button>
+        <button mat-icon-button class="vt-button-dislike" (click)="isEdit = !isEdit"><i class="material-icons">cancel</i></button>
       </mat-card-actions>
     </mat-card>
 
-<!-- </ng-template> -->
+</ng-template>

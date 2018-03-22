@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
 import { MatModule } from '../../shared/matModule';
 
 import { CustomersRoutingModule } from './customers-routing.module';

@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AppRoutingModule } from './app-routing.module';
 import { MatModule } from './shared/matModule';
+import { NavService } from './shared/nav.service';
 
 import { AppComponent } from './app.component';
 
@@ -22,7 +23,7 @@ import { AppComponent } from './app.component';
     AppRoutingModule,
     MatModule
   ],
-  providers: [],
+  providers: [NavService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

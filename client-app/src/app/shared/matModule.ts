@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import {
     MatAutocompleteModule,
     MatButtonModule,
@@ -39,6 +40,7 @@ import {
 
   @NgModule({
     imports: [
+        NgxDatatableModule,
         NgxChartsModule,
         FormsModule,
         ReactiveFormsModule,
@@ -78,6 +80,7 @@ import {
         MatFormFieldModule
     ],
     exports: [
+        NgxDatatableModule,
         NgxChartsModule,
         FormsModule,
         ReactiveFormsModule,
