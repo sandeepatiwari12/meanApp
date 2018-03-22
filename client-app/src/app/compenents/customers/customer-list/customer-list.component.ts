@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 
 import { ContactsService } from '../customers.service';
 import { Contact } from '../../../models/contact';
-import { constants } from 'fs';
 
 @Component({
   selector: 'app-customer-list',
