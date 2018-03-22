@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NgxDatatableModule, DatatableComponent } from '@swimlane/ngx-datatable';
+import { Router } from '@angular/router';
 
 import { ContactsService } from '../customers.service';
 import { Contact } from '../../../models/contact';
@@ -10,13 +12,23 @@ import { Contact } from '../../../models/contact';
 })
 export class CustomerListComponent implements OnInit {
 
+  private table: DatatableComponent;
 // defining the variables
-  contacts: Contact[];
+  // tslint:disable-next-line:no-inferrable-types
+  isEdit: boolean = false;
+  contactList: Contact[];
+  selectedRowContact: Contact[];
   first_name: string;
   last_name: string;
   phone: string;
+  temp: any[];
+  private selectedContact: Contact;
 
-  constructor(private contactsService: ContactsService) { }
+  constructor(
+    private contactsService: ContactsService,
+    private router: Router) {
+      this.selectedRowContact = [];
+    }
 
   ngOnInit() {
     this.resreshData();
@@ -24,9 +36,12 @@ export class CustomerListComponent implements OnInit {
 
   // refresh data
   resreshData() {
-    this.contactsService.getContacts()
-    .subscribe( contacts =>
-    this.contacts = contacts);
+    this.contactsService.getContacts().subscribe((contactList) => {
+      console.log(contactList);
+      this.contactList = contactList;
+      this.temp = contactList;
+      console.log(this.temp);
+    });
   }
 
   // add Contact
@@ -38,24 +53,36 @@ export class CustomerListComponent implements OnInit {
     };
     this.contactsService.addContact(newContact)
     .subscribe(contact => {
-      this.contacts.push(contact);
+      this.contactList.push(contact);
       this.resreshData();
     });
   }
 
   // delete Contact
   deleteContact(id: any) {
-    const contacts = this.contacts;
+    const contactList = this.contactList;
     this.contactsService.deleteContact(id)
     .subscribe(data => {
       if (data.n === 1) {
-        for (let i = 0; i < contacts.length; i++) {
-          if (contacts[i]._id === id) {
-            contacts.splice(i, 1);
+        for (let i = 0; i < contactList.length; i++) {
+          if (contactList[i]._id === id) {
+            contactList.splice(i, 1);
           }
         }
       }
     });
   }
+// edit contact
+
+clicktoEditContact(e: any, selectedContact: Contact[]) {
+  console.log(selectedContact);
+  this.selectedContact = selectedContact[0];
+  this.router.navigateByUrl('/' + this.selectedContact.getId());
+}
+
+// make Editabe
+addnew() {
+  this.isEdit = !this.isEdit;
+}
 
 }

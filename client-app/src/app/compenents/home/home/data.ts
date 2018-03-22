@@ -1,35 +1,35 @@
 export var single = [
     {
         'name': 'India',
-        'value': 5893354
+        'value': 58369
     },
     {
         'name': 'France',
-        'value': 3674552
+        'value': 58678
     },
     {
         'name': 'Sweden',
-        'value': 298395
+        'value': 5897
     },
     {
         'name': 'Netherlands',
-        'value': 184398
+        'value': 968
     },
     {
         'name': 'Saint Pierre and Miquelon',
-        'value': 571949
+        'value': 586
     },
     {
         'name': 'Italy',
-        'value': 312885
+        'value': 123
     },
     {
         'name': 'Niue',
-        'value': 507716
+        'value': 358
     },
     {
         'name': 'Nauru',
-        'value': 578086
+        'value': 358
     }
 ];
 
@@ -128,3 +128,44 @@ export var multi = [
         ]
     }
 ];
+
+
+
+
+
+
+// Unwanded Data
+
+
+// {
+//     "name": "India",
+//     "value": "5893354"
+// },
+// {
+//     "name": "France",
+//     "value": "3674552"
+// },
+// {
+//     "name": "Sweden",
+//     "value": "298395"
+// },
+// {
+//     "name": "Netherlands",
+//     "value": "184398"
+// },
+// {
+//     "name": "Saint Pierre and Miquelon",
+//     "value": "571949"
+// },
+// {
+//     "name": "Italy",
+//     "value": "312885"
+// },
+// {
+//     "name": "Niue",
+//     "value": "507716"
+// },
+// {
+//     "name": "Nauru",
+//     "value": "578086"
+// }
