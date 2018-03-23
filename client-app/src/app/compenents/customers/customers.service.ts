@@ -11,28 +11,29 @@ const APIBaseUrl = 'http://localhost:3000';
 export class ContactsService {
 
     constructor(private http: Http) {
-
     }
+
     // retriving Contact list
     getContacts(): Observable<Contact[]> {
         return this.http.get(APIBaseUrl + '/api/contacts')
                 .map(this.extractContactData);
             // .map(res => res.json());
     }
+
     // Extract Data
 private extractContactData(res: Response): Contact[] {
     let responseBody: any;
     if (res.json()) {responseBody = res.json(); }
-    let contactList: Contact[];
+    let contactList: Contact [];
     contactList = [];
-    if (responseBody.contactList) {
-        responseBody.contactList.Contact.forEach(element => {
-            const contact = new Contact();
-            contact.setId(element._id);
-            contact.setFirstName(element.first_name);
-            contact.setLastName(element.last_name);
-            contact.setPhone(element.phone);
-            contactList.push(contact);
+    if (responseBody) {
+        responseBody.forEach(element => {
+            const cntct = new Contact();
+            cntct.setId(element._id);
+            cntct.setFirstName(element.first_name);
+            cntct.setLastName(element.last_name);
+            cntct.setPhone(element.phone);
+            contactList.push(cntct);
         });
     }
     return contactList;

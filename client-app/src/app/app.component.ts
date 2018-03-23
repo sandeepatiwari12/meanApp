@@ -3,6 +3,7 @@ import { MediaMatcher } from '@angular/cdk/layout';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Navbar } from './models/modelFactory';
 import { NavService } from './shared/nav.service';
+// import { AuthenticationService } from './shared/authentication.service';
 
 @Component({
   selector: 'app-root',
@@ -18,6 +19,7 @@ export class AppComponent {
   constructor(
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
+    // public auth: AuthenticationService,
     private navService: NavService,
     private router: Router,
     private ngZone: NgZone) {

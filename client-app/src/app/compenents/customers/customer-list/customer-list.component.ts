@@ -37,10 +37,8 @@ export class CustomerListComponent implements OnInit {
   // refresh data
   resreshData() {
     this.contactsService.getContacts().subscribe((contactList) => {
-      console.log(contactList);
       this.contactList = contactList;
       this.temp = contactList;
-      console.log(this.temp);
     });
   }
 
@@ -77,7 +75,7 @@ export class CustomerListComponent implements OnInit {
 clicktoEditContact(e: any, selectedContact: Contact[]) {
   console.log(selectedContact);
   this.selectedContact = selectedContact[0];
-  this.router.navigateByUrl('/' + this.selectedContact.getId());
+  this.router.navigateByUrl('/about/' + this.selectedContact.getId());
 }
 
 // make Editabe
