@@ -33,6 +33,7 @@ private extractContactData(res: Response): Contact[] {
             cntct.setFirstName(element.first_name);
             cntct.setLastName(element.last_name);
             cntct.setPhone(element.phone);
+            cntct.setCreated_date(element.created_date);
             contactList.push(cntct);
         });
     }

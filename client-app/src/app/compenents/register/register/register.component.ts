@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -15,9 +16,11 @@ employee = [
     profilePic: 'https://lh3.googleusercontent.com/-oOm02CNvjd0/AAAAAAAAAAI/AAAAAAAAAJQ/tCDJ4tfuIhk/s120-p-rw-no/photo.jpg'
   }
 ];
-  constructor() { }
+  constructor(
+    private router: Router) { }
 
   ngOnInit() {
   }
+
 
 }

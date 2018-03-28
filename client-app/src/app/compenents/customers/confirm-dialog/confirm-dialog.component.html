@@ -1,0 +1,7 @@
+
+<h4 class="text-center">Are you sure want to Delete this Contact?</h4> 
+<mat-divider flex></mat-divider>
+  <div class="button-row text-center">
+    <button mat-raised-button (click)="dialogRef.close()" type="button" >Cancel</button>
+    <button mat-raised-button class="vt-button-submit" (click)="confirmDeleteContact()" type="button" [disabled]="disableSubmitButton === false">Yes</button>
+  </div>

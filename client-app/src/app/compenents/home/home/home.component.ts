@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { single } from './data';
 import { HomeService } from '../home.service';
 import { Dashboard } from '../../../models/dashboard';
+import { UserService } from '../../../shared/_services/index';
+import { User } from '../../../models/user';
 
 @Component({
   selector: 'app-home',
@@ -11,8 +13,8 @@ import { Dashboard } from '../../../models/dashboard';
 })
 export class HomeComponent implements OnInit {
   single: Dashboard[];
-  // single: any[];
   multi: any[];
+  users: User[] = [];
 
   // options
   showXAxis = true;
@@ -28,7 +30,10 @@ export class HomeComponent implements OnInit {
     domain: ['#FF9933', '#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
   };
 
-  constructor(private homeService: HomeService) {
+  constructor(
+    private homeService: HomeService,
+    private userService: UserService) {
+
     Object.assign(this, { single });
   }
 
@@ -40,8 +45,15 @@ export class HomeComponent implements OnInit {
   }
   refreshData() {
     this.homeService.getDashboardData()
-    .subscribe( dashboard =>
-    this.single = dashboard);
+      .subscribe(dashboard =>
+        this.single = dashboard);
+
+
+    // get users from secure api end point
+    this.userService.getUsers()
+      .subscribe(users => {
+        this.users = users;
+      });
   }
 
 }

@@ -5,6 +5,8 @@ import { MatModule } from '../../shared/matModule';
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home/home.component';
 import { HomeService } from './home.service';
+import { AuthGuard } from './../../shared/_guards/auth.guard';
+import { AuthenticationService, UserService } from '../../shared/_services/index';
 
 @NgModule({
   imports: [
@@ -13,6 +15,9 @@ import { HomeService } from './home.service';
     HomeRoutingModule
   ],
   declarations: [HomeComponent],
-  providers: [HomeService]
+  providers: [
+    HomeService,
+    UserService,
+    AuthenticationService]
 })
 export class HomeModule { }

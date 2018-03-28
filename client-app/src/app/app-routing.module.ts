@@ -1,10 +1,42 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-// import { AuthenticationService } from './shared/authentication.service';
-// import { AuthGuardService } from './shared/auth-guard.service';
+
+import { AuthGuard } from './shared/_guards/index';
+import { AuthenticationService, UserService } from './shared/_services/index';
 
 
 const routes: Routes = [
+  {
+    path: '',
+    loadChildren: 'app/compenents/home/home.module#HomeModule',
+    canActivate: [AuthGuard]
+  },
+  // {
+  //   path: '',
+  //   loadChildren: 'app/compenents/navbar/navbar.module#NavbarModule',
+  //   canActivate: [AuthGuard],
+  // },
+  {
+    path: 'customers',
+    loadChildren: 'app/compenents/customers/customers.module#CustomersModule',
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'orders',
+    loadChildren: 'app/compenents/orders/orders.module#OrdersModule',
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'about',
+    loadChildren: 'app/compenents/about/about.module#AboutModule',
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'contact',
+    loadChildren: 'app/compenents/contact/contact.module#ContactUsModule',
+    canActivate: [AuthGuard]
+  },
+  // without Authgaurd
   {
     path: 'login',
     loadChildren: 'app/compenents/login/login.module#LoginModule'
@@ -17,38 +49,12 @@ const routes: Routes = [
     path: 'reset-password',
     loadChildren: 'app/compenents/login/reset-password/reset-password.module#ResetPasswordModule'
   },
-  {
-    path: 'customers',
-    loadChildren: 'app/compenents/customers/customers.module#CustomersModule',
-    // canActivate: [AuthGuardService]
-  },
-  {
-    path: 'orders',
-    loadChildren: 'app/compenents/orders/orders.module#OrdersModule',
-    // canActivate: [AuthGuardService]
-  },
-  {
-    path: 'about',
-    loadChildren: 'app/compenents/about/about.module#AboutModule',
-    // canActivate: [AuthGuardService]
-  },
-  {
-    path: 'contact',
-    loadChildren: 'app/compenents/contact/contact.module#ContactUsModule',
-    // canActivate: [AuthGuardService]
-  },
-  {
-    path: '',
-    loadChildren: 'app/compenents/home/home.module#HomeModule',
-    // canActivate: [AuthGuardService]
-  },
 
   // for specific ID
-
   {
     path: 'about/:_id',
     loadChildren: 'app/compenents/about/about.module#AboutModule',
-    // canActivate: [AuthGuardService]
+    canActivate: [AuthGuard]
   },
 
   { path: '', redirectTo: 'login' , pathMatch: 'full' },
@@ -61,8 +67,9 @@ const routes: Routes = [
   ],
   exports: [RouterModule],
   providers: [
-    // AuthenticationService,
-    // AuthGuardService
+    AuthGuard,
+    AuthenticationService,
+    UserService
   ]
 })
 export class AppRoutingModule { }

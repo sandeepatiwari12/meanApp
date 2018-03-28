@@ -1,38 +1,4 @@
-<div class="vt-container" [class.vt-is-mobile]="mobileQuery.matches">
-  <mat-toolbar color="primary" class="vt-toolbar">
-    <!-- for mobile device only -->
-    <button mat-icon-button (click)="snav.toggle()" fxHide.gt-lg *ngIf="mobileQuery.matches">
-      <mat-icon *ngIf="!snav.opened">menu</mat-icon>
-      <mat-icon *ngIf="snav.opened">close</mat-icon>
-    </button>
-      <!-- for Desktop only -->
-  <button mat-icon-button fxHide="false" (click)="snav.toggle()" fxHide.gt-lg *ngIf="!mobileQuery.matches">
-      <mat-icon>menu</mat-icon>
-    </button>
-    <h1 class="vt-app-name">Practice App</h1>
-    <span class="sp"></span>
-    <button mat-button [matMenuTriggerFor]="menu">
-      <mat-icon class="material-icons">account_circle</mat-icon>
-    </button>
-    <mat-menu #menu="matMenu" overlapTrigger="false">
-      <button mat-menu-item>Profile</button>
-      <button mat-menu-item routerLink="/login">Logout</button>
-    </mat-menu>
-
-  </mat-toolbar>
-
-  <mat-sidenav-container class="vt-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
-    <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="false" fixedTopGap="56" [opened]="!mobileQuery.matches">
-      <mat-nav-list>
-        <a mat-list-item *ngFor="let nav of fillerNav" routerLink="{{nav.link}}">
-          <mat-icon class="{{nav.class}}">{{nav.icon}}</mat-icon>
-          &nbsp;&nbsp;{{nav.name}}</a>
-      </mat-nav-list>
-    </mat-sidenav>
-    <mat-sidenav-content>
-      <div class="main-container">
-        <router-outlet></router-outlet>
-      </div>
-    </mat-sidenav-content>
-  </mat-sidenav-container>
-</div>
+<!-- <div class="vt-app">
+<router-outlet></router-outlet>
+</div> -->
+<app-nav-list></app-nav-list>

@@ -1,26 +1,30 @@
 import { BrowserModule } from '@angular/platform-browser';
-import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
-import {BrowserAnimationsModule, NoopAnimationsModule} from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import 'hammerjs';
+import 'rxjs/add/operator/toPromise';
+
 import { AppRoutingModule } from './app-routing.module';
 import { MatModule } from './shared/matModule';
-import { NavService } from './shared/nav.service';
-// import { AuthenticationService } from './shared/authentication.service';
-// import { AuthGuardService } from './shared/auth-guard.service';
+import { NavService } from './compenents/navbar/navbar.service';
+import { NavListComponent } from '../app/compenents/navbar/nav-list/nav-list.component';
+// import { NavbarModule } from '../app/compenents/navbar/navbar.module';
+import { EventReaderService } from './shared/eventReader';
 
 import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    NavListComponent
   ],
   imports: [
+    // NavbarModule,
     BrowserModule,
     BrowserAnimationsModule,
-    NoopAnimationsModule,
     FormsModule,
     HttpModule,
     AppRoutingModule,
@@ -28,9 +32,8 @@ import { AppComponent } from './app.component';
     HttpClientModule
   ],
   providers: [
+    EventReaderService,
     NavService,
-    // AuthenticationService,
-    // AuthGuardService
   ],
   bootstrap: [AppComponent]
 })

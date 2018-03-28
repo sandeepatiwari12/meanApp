@@ -1,32 +1,44 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-// import { AuthenticationService, TokenPayload } from '../../../shared/authentication.service';
+
+
+import { AuthenticationService } from '../../../shared/_services/index';
 
 @Component({
+  moduleId: module.id,
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  // credentials: TokenPayload = {
-  //   email: '',
-  //   password: ''
-  // };
+  loginButton: string;
+  model: any = {};
+  loading = false;
+  error = '';
 
   constructor(
-    // private auth: AuthenticationService,
-    private router: Router) { }
+    private router: Router,
+    private authenticationService: AuthenticationService) {
+      this.loginButton = 'Sign in';
+    }
 
   ngOnInit() {
+    // reset login status
+    this.authenticationService.logout();
   }
 
-  // Login Function
-  // login() {
-  //   this.auth.login(this.credentials).subscribe(() => {
-  //     this.router.navigateByUrl('/profile');
-  //   }, (err) => {
-  //     console.error(err);
-  //   });
-  // }
-
+  login() {
+    this.loading = true;
+    this.loginButton = 'Loading...';
+    this.authenticationService.login(this.model.username, this.model.password)
+        .subscribe(result => {
+            if (result === true) {
+                this.router.navigate(['']);
+            } else {
+                this.error = 'Username or password is incorrect';
+                this.loading = false;
+                this.loginButton = 'Sign in';
+            }
+        });
+}
 }

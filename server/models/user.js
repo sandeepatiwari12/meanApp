@@ -1,23 +1,27 @@
 const mongoose = require('mongoose');
 
-const NavSchema = mongoose.Schema({
-    name: {
+const UserSchema = mongoose.Schema({
+    fullname: {
         type: String,
         required: true
     },
-    link: {
+    phone: {
         type: String,
         required: true
     },
-    icon: {
+    email: {
         type: String,
         required: true
     },
-    class: {
+    userType: {
+        type: String,
+        required: true
+    },
+    address:{
         type: String,
         required: true
     },
     created_date: { type: Date, default: Date.now }
 });
 
-const Nav = module.exports = mongoose.model('Nav', NavSchema);
+const User = module.exports = mongoose.model('User', UserSchema);

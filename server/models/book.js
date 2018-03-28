@@ -26,7 +26,7 @@ var BookSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  updated_date: { type: Date, default: Date.now },
+  created_date: { type: Date, default: Date.now }
 });
 
 const Book = module.exports = mongoose.model('Book', BookSchema);

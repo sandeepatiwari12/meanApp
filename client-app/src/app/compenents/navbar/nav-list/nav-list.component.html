@@ -1,0 +1,56 @@
+<div class="vt-container" [class.vt-is-mobile]="mobileQuery.matches">
+  <mat-toolbar color="primary" class="vt-toolbar">
+    <!-- for mobile device only -->
+    <button mat-icon-button (click)="snav.toggle()" fxHide.gt-lg *ngIf="mobileQuery.matches">
+      <mat-icon *ngIf="!snav.opened">menu</mat-icon>
+      <mat-icon *ngIf="snav.opened">close</mat-icon>
+    </button>
+      <!-- for Desktop only -->
+  <button mat-icon-button fxHide="false" (click)="snav.toggle()" fxHide.gt-lg *ngIf="!mobileQuery.matches">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <h1 class="vt-app-name">Practice App</h1>
+    <span class="sp"></span>
+    <button mat-button [matMenuTriggerFor]="menu">
+      <mat-icon class="material-icons">account_circle</mat-icon>
+      <!-- <span class="userIcon">{{}}</span> -->
+    </button>
+    <mat-menu #menu="matMenu" overlapTrigger="false">
+      <button mat-menu-item>Profile</button>
+      <button mat-menu-item (click)="logout()">Logout</button>
+    </mat-menu>
+
+  </mat-toolbar>
+
+  <mat-sidenav-container class="vt-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+    <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="false" fixedTopGap="56" [opened]="!mobileQuery.matches">
+      
+      <!-- for Actual Nav Data -->
+      <ng-template [ngIf]="!navNotFound">
+      <mat-nav-list>
+        <a mat-list-item *ngFor="let nav of fillerNav" routerLink="{{nav.link}}">
+          <mat-icon class="{{nav.class}}">{{nav.icon}}</mat-icon>
+          &nbsp;&nbsp;{{nav.name}}</a>
+      </mat-nav-list>
+      </ng-template>
+      <!-- for Actual Nav Data -->
+
+      <!-- for Dummy on Load -->
+      <ng-template [ngIf]="navNotFound">
+      <mat-nav-list>
+        <a mat-list-item class="vt-dummy-nav" *ngFor="let dnav of ['&nbsp;&nbsp;','&nbsp;&nbsp;','&nbsp;&nbsp;','&nbsp;&nbsp;','&nbsp;&nbsp;']">
+          &nbsp;&nbsp;{{dnav}}</a>
+      </mat-nav-list>
+    </ng-template>
+      <!-- ./for Dummy on Load -->
+      
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <div class="main-container">
+        <div class="main-wrapper">
+        <router-outlet></router-outlet>
+        </div>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

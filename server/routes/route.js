@@ -4,16 +4,47 @@ const router = express.Router();
 const Contact = require('../models/contacts');
 const Book = require('../models/book');
 const Dashboard = require('../models/dashboard');
-const Nav = require('../models/navs')
+const Nav = require('../models/navs');
+const User = require('../models/user');
 
 
 // APIs
 
+// =============================================Loging User Data===========================================
+// Retiving User Data
+router.get('/loginUserData', (req, res, next) => {
+    User.find(function (err, user){
+        console.log('User Data', user);
+        res.json(user);
+    })
+});
+
+/* add User Data */
+router.post('/loginUser', (req, res, next) => {
+    let newUser = new User({
+        fullname: req.body.fullname,
+        phone: req.body.phone,
+        email: req.body.email,
+        userType: req.body.userType,
+        address: req.body.address
+    });
+    newUser.save((err, user) => {
+        if (err) {
+            res.json({ msg: 'Failed to add User Data' })
+        }
+        else {
+
+            res.json({ msg: ' User Data added succesfully' })
+        }
+    });
+});
+
 // =============================================NavBar==============================================
 // Retiving Navbar Data
 router.get('/navbarData', (req, res, next) => {
-    Nav.find(function (err, dashboard){
-        res.json(dashboard);
+    Nav.find(function (err, navbar){
+        console.log('Navbar Data', navbar);
+        res.json(navbar);
     })
 });
 
@@ -21,6 +52,7 @@ router.get('/navbarData', (req, res, next) => {
 router.post('/navbar', function (req, res, next) {
     Nav.create(req.body, function (err, post) {
         if (err) return next(err);
+        console.log(body);
         res.json(post);
     });
 });
@@ -30,6 +62,7 @@ router.post('/navbar', function (req, res, next) {
 // Retiving Dashboard Data
 router.get('/dashboardData', (req, res, next) => {
     Dashboard.find(function (err, dashboard){
+        console.log('Dashboard Data', dashboard); 
         res.json(dashboard);
     })
 });
@@ -70,6 +103,7 @@ router.post('/dashboard', function (req, res, next) {
 // retriving Contact Data
 router.get('/contacts', (req, res, next) => {
     Contact.find(function (err, contacts) {
+        console.log('Contacts Data', contacts);
         res.json(contacts);
     });
 });

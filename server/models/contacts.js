@@ -12,7 +12,8 @@ const ContactSchema = mongoose.Schema({
     phone:{
         type: String,
         required: true
-    }
+    },
+    created_date: { type: Date, default: Date.now }
 });
 
 const Contact = module.exports = mongoose.model('Contact', ContactSchema);

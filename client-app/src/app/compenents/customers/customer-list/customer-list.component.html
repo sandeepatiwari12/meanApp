@@ -1,21 +1,29 @@
 
-<ng-template [ngIf]="!isEdit">
+<ng-template [ngIf]="isEdit === false">
 <h2>Customers List</h2>
   <mat-card>
     <mat-card-header>
     </mat-card-header>
     <mat-card-content>
-          <ngx-datatable class="material fixed-header expandable"
+            <mat-form-field>
+                <input matInput
+            placeholder='Search...'
+            (keyup)='updateFilter($event)'
+          />
+            </mat-form-field>
+          <ngx-datatable class="material fixed-header no-shadow"
+          #table
           [rows]="contactList" 
           [columnMode]="'force'" 
           [headerHeight]="50"
           [footerHeight]="50"
           [rowHeight]="70"
-          [scrollbarH]="50"
-          [selected]='selectedRowContact' 
-          [selectionType]="'single'"
-          (click)="clicktoEditContact($event,selectedRowContact)" 
+          [scrollbarH]="50" 
+          [loadingIndicator]="loadingIndicator"
+          [reorderable]="reorderable"
           [limit]="3" >
+          
+          <!--  [selectionType]="'single'"[selected]='selectedRowContact' (click)="clicktoEditContact($event,selectedRowContact)"  -->
               <ngx-datatable-column  
               [sortable]="true"
               [draggable]="false"
@@ -53,9 +61,21 @@
               [sortable]="true"
               [draggable]="false"
               [resizeable]="false"
+              name="Created Date"
+              prop="created_date">
+                  <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                      {{(row.created_date === "" ) ? 'N/A' : ( row.created_date | date:'fullDate' )}}
+                      <!-- {{(row.created_date ? )}} -->
+                  </ng-template>
+              </ngx-datatable-column>
+              
+              <ngx-datatable-column  
+              [sortable]="true"
+              [draggable]="false"
+              [resizeable]="false"
               name="Action">
                   <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-                      <button mat-icon-button class="vt-button-dislike" (click)="deleteContact(row._id)"><i class="material-icons">delete</i></button>
+                      <button mat-icon-button class="vt-button-dislike" (click)="openDialog(row._id)"><i class="material-icons">delete</i></button>
                   </ng-template>
               </ngx-datatable-column>
               </ngx-datatable>
@@ -67,8 +87,8 @@
 </ng-template>
 
 <!-- new Contact Form -->
-<ng-template [ngIf]="isEdit">
-    <mat-card class="vt-card">
+<ng-template [ngIf]="isEdit === true">
+    <mat-card class="vt-card vt-center">
       <mat-card-header>
         <h2>Add New Contact</h2>
       </mat-card-header>
@@ -99,7 +119,7 @@
         </form>
       </mat-card-content>
       <mat-card-actions>
-        <button mat-icon-button class="vt-button-dislike" (click)="addContact()"><i class="material-icons">save</i></button>
+        <button mat-icon-button class="vt-button-like" (click)="addContact()"><i class="material-icons">save</i></button>
         <button mat-icon-button class="vt-button-dislike" (click)="isEdit = !isEdit"><i class="material-icons">cancel</i></button>
       </mat-card-actions>
     </mat-card>

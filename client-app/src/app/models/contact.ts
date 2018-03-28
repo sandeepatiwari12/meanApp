@@ -4,9 +4,16 @@ export class Contact {
     first_name: string;
     last_name: string;
     phone: string;
+    created_date: Date;
 
     constructor() {}
 
+    getCreated_date(): Date {
+        return this.created_date;
+    }
+    setCreated_date(created_date: Date): void {
+        this.created_date = created_date;
+    }
     getId(): string {
         return this._id;
     }
