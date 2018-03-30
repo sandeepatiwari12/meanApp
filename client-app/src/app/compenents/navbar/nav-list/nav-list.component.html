@@ -1,36 +1,38 @@
 <div class="vt-container" [class.vt-is-mobile]="mobileQuery.matches">
   <mat-toolbar color="primary" class="vt-toolbar">
     <!-- for mobile device only -->
-    <button mat-icon-button (click)="snav.toggle()" fxHide.gt-lg *ngIf="mobileQuery.matches">
-      <mat-icon *ngIf="!snav.opened">menu</mat-icon>
-      <mat-icon *ngIf="snav.opened">close</mat-icon>
+    <button mat-icon-button (click)="sideNavBar.toggle()" fxHide.gt-lg *ngIf="mobileQuery.matches">
+      <mat-icon *ngIf="!sideNavBar.opened">menu</mat-icon>
+      <mat-icon *ngIf="sideNavBar.opened">close</mat-icon>
     </button>
       <!-- for Desktop only -->
-  <button mat-icon-button fxHide="false" (click)="snav.toggle()" fxHide.gt-lg *ngIf="!mobileQuery.matches">
+  <button mat-icon-button fxHide="false" (click)="sideNavBar.toggle()" fxHide.gt-lg *ngIf="!mobileQuery.matches">
       <mat-icon>menu</mat-icon>
     </button>
     <h1 class="vt-app-name">Practice App</h1>
     <span class="sp"></span>
-    <button mat-button [matMenuTriggerFor]="menu">
+    <button mat-button [matMenuTriggerFor]="userMenu">
       <mat-icon class="material-icons">account_circle</mat-icon>
-      <!-- <span class="userIcon">{{}}</span> -->
+      <span class="userIcon">{{loggedInUserName}}</span>
     </button>
-    <mat-menu #menu="matMenu" overlapTrigger="false">
+    <mat-menu #userMenu="matMenu" overlapTrigger="false">
       <button mat-menu-item>Profile</button>
-      <button mat-menu-item (click)="logout()">Logout</button>
+      <button mat-menu-item (click)="onLogoutClick()">Logout</button>
     </mat-menu>
 
   </mat-toolbar>
 
   <mat-sidenav-container class="vt-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
-    <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="false" fixedTopGap="56" [opened]="!mobileQuery.matches">
+    <mat-sidenav #sideNavBar [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="false" fixedTopGap="56" [opened]="!mobileQuery.matches">
       
       <!-- for Actual Nav Data -->
       <ng-template [ngIf]="!navNotFound">
       <mat-nav-list>
-        <a mat-list-item *ngFor="let nav of fillerNav" routerLink="{{nav.link}}">
-          <mat-icon class="{{nav.class}}">{{nav.icon}}</mat-icon>
-          &nbsp;&nbsp;{{nav.name}}</a>
+        <ng-container *ngFor="let nbarData of fillerNav">
+        <a mat-list-item routerLink="{{nbarData.link}}">
+          <mat-icon class="{{nbarData.class}}">{{nbarData.icon}}</mat-icon>
+          &nbsp;&nbsp;{{nbarData.name}}</a>
+        </ng-container>
       </mat-nav-list>
       </ng-template>
       <!-- for Actual Nav Data -->

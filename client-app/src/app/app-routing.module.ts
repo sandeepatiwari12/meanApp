@@ -1,60 +1,69 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { AuthGuard } from './shared/_guards/index';
-import { AuthenticationService, UserService } from './shared/_services/index';
+import { NavListComponent } from '../app/compenents/navbar/nav-list/nav-list.component';
+import { AuthGuard } from '././shared/guards/auth.guard';
+import { NotAuthGuard } from '././shared/guards/notAuth.guard';
 
 
 const routes: Routes = [
   {
     path: '',
-    loadChildren: 'app/compenents/home/home.module#HomeModule',
-    canActivate: [AuthGuard]
+    component: NavListComponent,
+    // canActivate: [AuthGuard],
+    children: [
+      {
+        path: '',
+        loadChildren: 'app/compenents/home/home.module#HomeModule'
+      },
+      {
+        path: 'customers',
+        loadChildren: 'app/compenents/customers/customers.module#CustomersModule'
+      },
+      {
+        path: 'orders',
+        loadChildren: 'app/compenents/orders/orders.module#OrdersModule'
+      },
+      {
+        path: 'about',
+        loadChildren: 'app/compenents/about/about.module#AboutModule'
+      },
+      {
+        path: 'contact',
+        loadChildren: 'app/compenents/contact/contact.module#ContactUsModule'
+      },
+      // {
+      //   path: 'profile',
+      //   loadChildren: 'app/compenents/profile/profile.module#ProfileModule'
+      // },
+      // {
+      //   path: 'blog',
+      //   loadChildren: 'app/compenents/blog/blog.module#BlogModule'
+      // },
+
+      // for specific ID
+      {
+        path: 'about/:_id',
+        loadChildren: 'app/compenents/about/about.module#AboutModule'
+      },
+    ]
   },
-  // {
-  //   path: '',
-  //   loadChildren: 'app/compenents/navbar/navbar.module#NavbarModule',
-  //   canActivate: [AuthGuard],
-  // },
-  {
-    path: 'customers',
-    loadChildren: 'app/compenents/customers/customers.module#CustomersModule',
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'orders',
-    loadChildren: 'app/compenents/orders/orders.module#OrdersModule',
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'about',
-    loadChildren: 'app/compenents/about/about.module#AboutModule',
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'contact',
-    loadChildren: 'app/compenents/contact/contact.module#ContactUsModule',
-    canActivate: [AuthGuard]
-  },
+
   // without Authgaurd
   {
     path: 'login',
-    loadChildren: 'app/compenents/login/login.module#LoginModule'
+    loadChildren: 'app/compenents/login/login.module#LoginModule',
+    canActivate: [NotAuthGuard]
   },
   {
     path: 'register',
-    loadChildren: 'app/compenents/register/register.module#RegisterModule'
+    loadChildren: 'app/compenents/register/register.module#RegisterModule',
+    canActivate: [NotAuthGuard]
   },
   {
     path: 'reset-password',
-    loadChildren: 'app/compenents/login/reset-password/reset-password.module#ResetPasswordModule'
-  },
-
-  // for specific ID
-  {
-    path: 'about/:_id',
-    loadChildren: 'app/compenents/about/about.module#AboutModule',
-    canActivate: [AuthGuard]
+    loadChildren: 'app/compenents/login/reset-password/reset-password.module#ResetPasswordModule',
+    canActivate: [NotAuthGuard]
   },
 
   { path: '', redirectTo: 'login' , pathMatch: 'full' },
@@ -67,9 +76,7 @@ const routes: Routes = [
   ],
   exports: [RouterModule],
   providers: [
-    AuthGuard,
-    AuthenticationService,
-    UserService
+    AuthGuard
   ]
 })
 export class AppRoutingModule { }

@@ -1,21 +1,37 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
+import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import { AuthService } from '../../shared/services/auth.service';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 import { Contact } from '../../models/contact';
 
-const APIBaseUrl = 'http://localhost:3000';
 @Injectable()
 export class ContactsService {
 
-    constructor(private http: Http) {
+    options;
+    domain = this.authService.domain;
+
+    constructor(
+        private http: Http,
+        private authService: AuthService) {
     }
+
+  createAuthenticationHeaders() {
+    this.authService.loadToken();
+    this.options = new RequestOptions({
+      headers: new Headers({
+        'Content-Type': 'application/json', // Format set to JSON
+        'authorization': this.authService.authToken // Attach token
+      })
+    });
+  }
 
     // retriving Contact list
     getContacts(): Observable<Contact[]> {
-        return this.http.get(APIBaseUrl + '/api/contacts')
+        this.createAuthenticationHeaders();
+        return this.http.get(this.domain + 'api/contacts', this.options)
                 .map(this.extractContactData);
             // .map(res => res.json());
     }
@@ -27,7 +43,7 @@ private extractContactData(res: Response): Contact[] {
     let contactList: Contact [];
     contactList = [];
     if (responseBody) {
-        responseBody.forEach(element => {
+        responseBody.contacts.forEach(element => {
             const cntct = new Contact();
             cntct.setId(element._id);
             cntct.setFirstName(element.first_name);
@@ -44,13 +60,14 @@ private extractContactData(res: Response): Contact[] {
     addContact(newContact) {
         const headers = new Headers();
         headers.append('Content-Type', 'application/json');
-        return this.http.post(APIBaseUrl + '/api/contact', newContact, { headers: headers })
+        return this.http.post(this.domain + 'api/contact', newContact, { headers: headers })
             .map(res => res.json());
     }
 
     // delete Contact
     deleteContact(id) {
-        return this.http.delete(APIBaseUrl + '/api/contact/' + id)
+        this.createAuthenticationHeaders();
+        return this.http.delete(this.domain + 'api/contact/' + id, this.options)
             .map(res => res.json());
     }
 }

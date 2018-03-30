@@ -3,9 +3,9 @@ import { MediaMatcher } from '@angular/cdk/layout';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Navbar } from '../../../models/modelFactory';
 import { NavService } from '../navbar.service';
-import { AuthenticationService } from '../../../shared/_services/index';
-import { UserService } from '../../../shared/_services/index';
 import { User } from '../../../models/user';
+import { FlashMessagesService } from 'angular2-flash-messages';
+import { AuthService } from '../../../shared/services/auth.service';
 
 @Component({
   selector: 'app-nav-list',
@@ -19,19 +19,28 @@ export class NavListComponent implements OnInit {
   public mobileQuery: MediaQueryList;
   public fillerNav: Navbar[];
   users: User[] = [];
+  loggedInUserName: any;
+  // <i class="material-icons">account_balance</i>
+  // fillerNav = [
+  //   {
+  //     name: 'Dashboard',
+  //     link: '/',
+  //     class: 'material-icons',
+  //     icon: ''
+  //   }
+  // ];
 
   private _mobileQueryListener: () => void;
 
   constructor(
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
+    private authService: AuthService,
+    private flashMessagesService: FlashMessagesService,
     private navService: NavService,
-    private userService: UserService,
     private router: Router,
-    private authenticationService: AuthenticationService,
     private ngZone: NgZone) {
 
-    // this.fillerNav = this.staticNav[];
     this.navNotFound = true;
     this.mobileQuery = media.matchMedia('(max-width: 768px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -46,23 +55,25 @@ export class NavListComponent implements OnInit {
     window.onresize = (e) => {
       this.mobileQuery = media.matchMedia('(max-width: 768px)');
     };
-
-    this.userService.getUsers()
-    .subscribe(users => {
-      this.users = users;
-      console.log('this.users', this.users);
-    });
+    this.loggedInUserName = localStorage.getItem('user');
+    // console.log('from the NavList Component', this.loggedInUserName);
   }
 
   ngOnInit() {
     this.redreshData();
   }
 
+  // Function to logout user
+  onLogoutClick() {
+    this.authService.logout();
+    this.router.navigate(['/login']);
+  }
   redreshData() {
     // fettching the navbar data from database
     this.navService.getNavbarData()
-      .subscribe(navbar => {
-        this.fillerNav = navbar;
+      .subscribe(data => {
+        this.fillerNav = data.navbar;
+        // console.log('this.fillerNav', this.fillerNav);
 
         if (this.fillerNav.length) {
           this.navNotFound = false;
@@ -73,9 +84,4 @@ export class NavListComponent implements OnInit {
 
   }
 
-  // logout()
-  logout() {
-    this.authenticationService.logout();
-    this.router.navigateByUrl('/login');
-  }
 }

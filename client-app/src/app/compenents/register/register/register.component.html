@@ -1,45 +1,79 @@
-<ng-template [ngIf]="!employee">
-<h2>About us</h2>
-<ng-container *ngFor="let emp of employee">
-<mat-card class="vt-card">
+<mat-card class="vt-card vt-center">
     <mat-card-header>
-      <div mat-card-avatar class="vt-header-image"><img src="{{emp.profilePic}}"></div>
-      <mat-card-title>{{emp.name}}</mat-card-title>
-      <mat-card-subtitle>{{emp.designation}}</mat-card-subtitle>
+      <div mat-card-avatar class="vt-header-image">
+        <mat-icon class="material-icons fa-2x">account_circle</mat-icon>
+      </div>
+      <mat-card-title><h3>New User</h3></mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <p>{{emp.description}}</p>
+      
+        <div class="row show-hide-message">
+            <div [ngClass]="messageClass"> {{ message }} </div>
+            <div *ngIf="usernameMessage" [ngClass]="messageClass">{{ usernameMessage }}</div>
+            <!-- <div *ngIf="emailMessage" [ngClass]="messageClass">{{ emailMessage }}</div> -->
+          </div>
+        <form [formGroup]="form" (submit)="onRegisterSubmit()">
+
+            <mat-form-field>
+                <input matInput 
+                placeholder="User Name" 
+                name="username" 
+                autocomplete="off" 
+                formControlName="username" 
+                (blur)="checkUsername()" required />
+              </mat-form-field>
+              <div *ngIf="!form.controls.username.valid && (form.controls.username.touched)">
+                <mat-error class="mt-n15" *ngIf="form.controls.username.hasError('required')">User Name is required</mat-error>
+              </div>
+
+              <mat-form-field>
+                <input matInput 
+                placeholder="Email Address" 
+                name="email" 
+                autocomplete="off" 
+                formControlName="email" 
+                (blur)="checkEmail()" required />
+              </mat-form-field>
+              <div *ngIf="!form.controls.email.valid && (form.controls.email.touched)">
+                <mat-error class="mt-n15" *ngIf="form.controls.email.hasError('required')">Email is required</mat-error>
+              </div>
+            
+
+              <mat-form-field>
+                <input matInput 
+                placeholder="Password" 
+                name="password" 
+                autocomplete="off"
+                type="password"
+                formControlName="password" required />
+              </mat-form-field>
+              <div *ngIf="!form.controls.password.valid && (form.controls.password.touched)">
+                <mat-error class="mt-n15" *ngIf="form.controls.password.hasError('required')">Password is required</mat-error>
+              </div>
+            
+
+              <mat-form-field>
+                <input matInput 
+                placeholder="Confirm Password" 
+                name="confirm" 
+                autocomplete="off" 
+                type="password"
+                formControlName="confirm" required />
+              </mat-form-field>
+              <div *ngIf="!form.controls.confirm.valid && (form.controls.confirm.touched)">
+                <mat-error class="mt-n15" *ngIf="form.controls.confirm.hasError('required')">Password is required</mat-error>
+                <mat-error class="mt-n15" *ngIf="form.controls.confirm.hasError('matchingPasswords')">Mismach Password</mat-error>
+              </div>
+
+              <div layout="flex">
+              <button mat-raised-button 
+              class="vt-button-submit btn-full" 
+              type="submit" 
+              [disabled]="!form.valid || processing || !emailValid || !usernameValid" >{{registerButton}}</button>
+              </div>
+        </form>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-icon-button class="vt-button-like"><i class="material-icons">thumb_up</i></button>
-      <button mat-icon-button class="vt-button-dislike"><i class="material-icons">thumb_down</i></button>
+      <a mat-button routerLink="/login" class="btn-full">already Have account?</a>
     </mat-card-actions>
   </mat-card>
-</ng-container>
-</ng-template>
-
-<mat-card class="vt-card">
-    <mat-card-header>
-        <mat-card-title>
-        <h2>Register</h2>
-        </mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-<p class="lead">Already a member? Please <a routerLink="/login">log in</a> instead.</p>
-<form (submit)="register()">
-  <div class="form-group">
-    <label for="name">Full name</label>
-    <input type="text" class="form-control" name="name" placeholder="Enter your name" [(ngModel)]="credentials.name">
-  </div>
-  <div class="form-group">
-    <label for="email">Email address</label>
-    <input type="email" class="form-control" name="email" placeholder="Enter email" [(ngModel)]="credentials.email">
-  </div>
-  <div class="form-group">
-    <label for="password">Password</label>
-    <input type="password" class="form-control" name="password" placeholder="Password" [(ngModel)]="credentials.password">
-  </div>
-  <button type="submit" class="btn btn-default">Register!</button>
-</form>
-</mat-card-content>
-</mat-card>

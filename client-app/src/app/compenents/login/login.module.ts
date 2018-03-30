@@ -3,13 +3,9 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
-// used to create fake backend
-import { fakeBackendProvider } from './../../shared/_helpers/index';
-import { MockBackend, MockConnection } from '@angular/http/testing';
-import { BaseRequestOptions } from '@angular/http';
-
-import { AuthGuard } from './../../shared/_guards/auth.guard';
-import { AuthenticationService, UserService } from '../../shared/_services/index';
+import { FlashMessagesModule } from 'angular2-flash-messages';
+import { AuthGuard } from './../../shared/guards/auth.guard';
+import { NotAuthGuard } from './../../shared/guards/notAuth.guard';
 import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login/login.component';
 import { MatModule } from '../../shared/matModule';
@@ -21,17 +17,13 @@ import { MatModule } from '../../shared/matModule';
     FormsModule,
     LoginRoutingModule,
     HttpModule,
+    FlashMessagesModule
   ],
   declarations: [LoginComponent],
   providers: [
     AuthGuard,
-    AuthenticationService,
-    UserService,
-
-    // providers used to create fake backend
-    fakeBackendProvider,
-    MockBackend,
-    BaseRequestOptions
+    AuthGuard,
+    NotAuthGuard
   ]
 })
 export class LoginModule { }

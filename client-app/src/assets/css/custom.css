@@ -1,12 +1,15 @@
 /* layouts */
 body{
     background-color: #efe9e9;}
+a, button    
 a:focus, 
 a:hover, 
 a:active,
 button:focus,
 button:hover,
 button:active{
+    color: currentColor;
+    text-decoration: none !important;
     outline: none !important
 }
 .main-container{
@@ -27,7 +30,26 @@ button:active{
 .vt-center{
     margin: 10% auto !important;
 }
+.mt-n15{
+    margin-bottom: 2rem;
+}
+.userIcon {
+    text-transform: capitalize;
+    font-weight: 600; }
+/* message Colors */
+.vt-error{
+    text-align: center;
+    color: #98405d;
+    font-weight: 600;}
+.vt-success{
+    text-align: center;
+    color: #aac71d;
+    font-weight: 600;}
+.show-hide-message{
+    text-align: center;
+}
 .mat-form-field{ width: 100% !important }
+.btn-full{width: 100% !important;}
 /* custom Scroll bar */
 /* width */
 ::-webkit-scrollbar {

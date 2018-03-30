@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const jwt = require('jsonwebtoken'); // Compact, URL-safe means of representing claims to be transferred between two parties.
+const config = require('../config/database'); // Import database configuration
 
 const Contact = require('../models/contacts');
 const Book = require('../models/book');
@@ -8,44 +10,25 @@ const Nav = require('../models/navs');
 const User = require('../models/user');
 
 
+module.exports = (router) => {
 // APIs
-
-// =============================================Loging User Data===========================================
-// Retiving User Data
-router.get('/loginUserData', (req, res, next) => {
-    User.find(function (err, user){
-        console.log('User Data', user);
-        res.json(user);
-    })
-});
-
-/* add User Data */
-router.post('/loginUser', (req, res, next) => {
-    let newUser = new User({
-        fullname: req.body.fullname,
-        phone: req.body.phone,
-        email: req.body.email,
-        userType: req.body.userType,
-        address: req.body.address
-    });
-    newUser.save((err, user) => {
-        if (err) {
-            res.json({ msg: 'Failed to add User Data' })
-        }
-        else {
-
-            res.json({ msg: ' User Data added succesfully' })
-        }
-    });
-});
 
 // =============================================NavBar==============================================
 // Retiving Navbar Data
-router.get('/navbarData', (req, res, next) => {
-    Nav.find(function (err, navbar){
-        console.log('Navbar Data', navbar);
-        res.json(navbar);
-    })
+router.get('/navbarData', (req, res) => {
+    Nav.find({}, (err, navbar) => {
+        if(err) {
+            res.json({success : false, message: err});
+        } else {
+            if (!navbar) {
+                res.json({success: false, message: 'No Navbar Data Found'});
+            } else {
+                console.log(navbar);
+                res.json({success: true, navbar: navbar});
+            }
+        }
+    });
+    // .sort({ '_id': -1});
 });
 
 /* add Navbar Data */
@@ -60,10 +43,18 @@ router.post('/navbar', function (req, res, next) {
 // =============================================DashBoard==============================================
 
 // Retiving Dashboard Data
-router.get('/dashboardData', (req, res, next) => {
-    Dashboard.find(function (err, dashboard){
-        console.log('Dashboard Data', dashboard); 
-        res.json(dashboard);
+router.get('/dashboardData', (req, res) => {
+    Dashboard.find({}, (err, dashboard) => {
+        if(err) {
+            res.json( { success: false, message: err});
+        } else {
+            if(!dashboard) {
+                res.json( { success: false, message: 'No Dashboard Data Found'});
+            } else {
+                console.log(dashboard);
+                res.json( { success: true, dashboard: dashboard});
+            }
+        }
     })
 });
 
@@ -102,9 +93,17 @@ router.post('/dashboard', function (req, res, next) {
 
 // retriving Contact Data
 router.get('/contacts', (req, res, next) => {
-    Contact.find(function (err, contacts) {
-        console.log('Contacts Data', contacts);
-        res.json(contacts);
+    Contact.find({}, (err, contacts) => {
+        if (err) {
+            res.json( { success: false, message: err});
+        } else {
+            if (!contacts) {
+                res.json({ success: false, message: 'No Contact List Data Found'});
+            } else {
+                console.log(contacts);
+                res.json( { success: true, contacts: contacts});
+            }
+        }
     });
 });
 
@@ -127,15 +126,39 @@ router.post('/contact', (req, res, next) => {
 });
 
 // delete Contact Data
-router.delete('/contact/:id', (req, res, next) => {
-    Contact.remove({ _id: req.params.id }, function (err, result) {
-        if (err) {
-            res.json(err);
-        }
-        else {
-            res.json(result);
-        }
-    })
+router.delete('/contact/:id', (req, res) => {
+    // Contact.remove({ _id: req.params.id }, function (err, result) {
+    //     if (err) {
+    //         res.json(err);
+    //     }
+    //     else {
+    //         res.json(result);
+    //     }
+    // })
+
+    if(!req.params.id) {
+        res.json( { success: false, message: 'No Id Provided'});
+    } else {
+        Contact.findOne ( { _id: req.params.id}, (err, contact) => {
+            if(err) {
+                res.json( { success: false, message: 'Invalid ID'});
+            } else {
+                if(!contact) {
+                    res.json( { success: false, message: 'Contact was not Found'});
+                } else {
+                    // todo remove contact from database
+                    contact.remove((err) => {
+                        if(err) {
+                            res.json( { success: false, message: err});
+                        } else {
+                            // console.log(contacts);
+                            res.json({ success: true, message: 'Contact is Deleted'});
+                        }
+                    });
+                }
+            }
+        });
+    }
 });
 
 
@@ -195,7 +218,7 @@ router.delete('/book/:id', function (req, res, next) {
     });
 });
 
-
+return router;
 // =============================================End Of API Calls==============================================
-
-module.exports = router;
+}
+// module.exports = (router);

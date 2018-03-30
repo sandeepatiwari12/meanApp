@@ -3,8 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { single } from './data';
 import { HomeService } from '../home.service';
 import { Dashboard } from '../../../models/dashboard';
-import { UserService } from '../../../shared/_services/index';
 import { User } from '../../../models/user';
+import { AuthService } from '../../../shared/services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -32,7 +32,7 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private homeService: HomeService,
-    private userService: UserService) {
+    private authService: AuthService) {
 
     Object.assign(this, { single });
   }
@@ -45,15 +45,8 @@ export class HomeComponent implements OnInit {
   }
   refreshData() {
     this.homeService.getDashboardData()
-      .subscribe(dashboard =>
-        this.single = dashboard);
-
-
-    // get users from secure api end point
-    this.userService.getUsers()
-      .subscribe(users => {
-        this.users = users;
-      });
+      .subscribe(data =>
+        this.single = data.dashboard);
   }
 
 }
