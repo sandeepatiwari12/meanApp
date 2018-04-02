@@ -32,10 +32,10 @@ const routes: Routes = [
         path: 'contact',
         loadChildren: 'app/compenents/contact/contact.module#ContactUsModule'
       },
-      // {
-      //   path: 'profile',
-      //   loadChildren: 'app/compenents/profile/profile.module#ProfileModule'
-      // },
+      {
+        path: 'profile',
+        loadChildren: 'app/compenents/profile/profile.module#ProfileModule'
+      },
       // {
       //   path: 'blog',
       //   loadChildren: 'app/compenents/blog/blog.module#BlogModule'

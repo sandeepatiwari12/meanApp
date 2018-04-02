@@ -68,6 +68,9 @@ export class NavListComponent implements OnInit {
     this.authService.logout();
     this.router.navigate(['/login']);
   }
+  showProfile() {
+    this.router.navigate(['/profile']);
+  }
   redreshData() {
     // fettching the navbar data from database
     this.navService.getNavbarData()

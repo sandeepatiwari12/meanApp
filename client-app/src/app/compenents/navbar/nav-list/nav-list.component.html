@@ -16,7 +16,7 @@
       <span class="userIcon">{{loggedInUserName}}</span>
     </button>
     <mat-menu #userMenu="matMenu" overlapTrigger="false">
-      <button mat-menu-item>Profile</button>
+      <button mat-menu-item *ngIf="authService.loggedIn()" (click)="showProfile()">Profile</button>
       <button mat-menu-item (click)="onLogoutClick()">Logout</button>
     </mat-menu>
 
